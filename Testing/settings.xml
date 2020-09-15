@@ -1,0 +1,194 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+<!--   <mirrors>
+    <mirror>
+      <mirrorOf>*</mirrorOf>
+      <name>remote-repos</name>
+      <url>http://registry.mo.sap.corp:80/remote-repos</url>
+      <id>remote-repos</id>
+    </mirror>
+  </mirrors>
+ -->
+<servers>
+<!--  this is the user name for deploying to nexus - developers
+                              should not need this in their settings.
+                                       -->
+<server>
+<id>deployment</id>
+<username>deployment</username>
+<password>ariba2og</password>
+</server>
+<server>
+<id>deploy.releases</id>
+<username>temp_admin</username>
+<password>temp_admin</password>
+</server>
+<server>
+<id>deploy.snapshots</id>
+<username>temp_admin</username>
+<password>temp_admin</password>
+</server>
+<server>
+<id>deployment</id>
+<username>deployment</username>
+<password>deployment123</password>
+</server>
+</servers>
+<profiles>
+<profile>
+<repositories>
+<!--  for deploy testing - be sure to comment this out when finished testing  -->
+<!--  NOMORE defined in project pom
+	<repository>
+		<id>local-release</id>
+		<url>file:///SAPDevelop/local-maven-repo/releases/</url>
+          	<snapshots>
+            		<enabled>false</enabled>
+          	</snapshots>
+	</repository>
+	<repository>
+		<id>local-snapshot</id>
+		<url>file:///SAPDevelop/local-maven-repo/snapshots/</url>
+          	<snapshots>
+            		<enabled>true</enabled>
+          	</snapshots>
+	</repository>
+	 -->
+<repository>
+<id>nexus</id>
+<url>http://nexus1.ariba.com:8081/nexus/content/groups/build.snapshots/</url>
+<releases>
+<enabled>true</enabled>
+</releases>
+<snapshots>
+<enabled>true</enabled>
+</snapshots>
+</repository>
+<repository>
+<snapshots>
+<enabled>false</enabled>
+</snapshots>
+<id>central</id>
+<name>libs-release</name>
+<url>http://registry.mo.sap.corp:80/libs-release</url>
+</repository>
+<repository>
+<snapshots>
+<enabled>true</enabled>
+</snapshots>
+<id>snapshots</id>
+<name>libs-snapshot</name>
+<url>http://registry.mo.sap.corp:80/libs-snapshot</url>
+</repository>
+<repository>
+<id>repoaws</id>
+<url>https://repo.aws.ariba.com/libs-release-local</url>
+<releases>
+<enabled>true</enabled>
+</releases>
+<snapshots>
+<enabled>false</enabled>
+</snapshots>
+</repository>
+<repository>
+<id>remote</id>
+<url>http://registry.mo.sap.corp:80/remote-repos</url>
+<releases>
+<enabled>true</enabled>
+</releases>
+<snapshots>
+<enabled>true</enabled>
+</snapshots>
+</repository>
+<repository>
+<id>central-sap</id>
+<url>http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.milestones</url>
+<releases>
+<enabled>true</enabled>
+</releases>
+<snapshots>
+<enabled>true</enabled>
+</snapshots>
+</repository>
+</repositories>
+<pluginRepositories>
+<pluginRepository>
+<id>repoaws</id>
+<url>https://repo.aws.ariba.com/libs-release-local</url>
+<releases>
+<enabled>true</enabled>
+</releases>
+<snapshots>
+<enabled>false</enabled>
+</snapshots>
+</pluginRepository>
+<pluginRepository>
+<snapshots>
+<enabled>false</enabled>
+</snapshots>
+<id>central</id>
+<name>plugins-release</name>
+<url>http://registry.mo.sap.corp:80/plugins-release</url>
+</pluginRepository>
+<pluginRepository>
+<snapshots/>
+<id>snapshots</id>
+<name>plugins-snapshot</name>
+<url>http://registry.mo.sap.corp:80/plugins-snapshot</url>
+</pluginRepository>
+<pluginRepository>
+<id>ariba-releases</id>
+<url>http://nexus1.ariba.com:8081/nexus/content/groups/build.releases/</url>
+<releases>
+<enabled>true</enabled>
+</releases>
+<snapshots>
+<enabled>true</enabled>
+</snapshots>
+</pluginRepository>
+<!--  NOMORE added for fortify maven plugin
+	<pluginRepository>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+          <id>plugins-nexus</id>
+          <name>plugins-nexus</name>
+	  <url>http://nexus.wdf.sap.corp:8081/nexus/content/repositories/deploy.snapshots/</url>
+        </pluginRepository>
+	 -->
+</pluginRepositories>
+<id>artifactory</id>
+<activation>
+<activeByDefault>true</activeByDefault>
+</activation>
+</profile>
+</profiles>
+<activeProfiles>
+<!--  make the profile active all the time  -->
+<activeProfile>artifactory</activeProfile>
+</activeProfiles>
+<!--  define the sonatype plugin group, so the nexus plugins will work without typing the groupId  -->
+<pluginGroups>
+<pluginGroup>org.sonatype.plugins</pluginGroup>
+<pluginGroup>ariba.devtools</pluginGroup>
+<pluginGroup>com.sap.ldi</pluginGroup>
+<pluginGroup>org.whitesource</pluginGroup>
+</pluginGroups>
+<proxies>
+<proxy>
+<id>httpsproxy</id>
+<active>true</active>
+<protocol>https</protocol>
+<host>proxy02.ariba.com</host>
+<port>8080</port>
+<nonProxyHosts>*.ariba.com</nonProxyHosts>
+</proxy>
+<proxy>
+<id>myproxy</id>
+<active>true</active>
+<protocol>http</protocol>
+<host>proxy02.ariba.com</host>
+<port>8080</port>
+<nonProxyHosts>*.ariba.com</nonProxyHosts>
+</proxy>
+</proxies>
+</settings>
